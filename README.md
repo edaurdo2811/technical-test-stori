@@ -1,58 +1,30 @@
 
 # Welcome to your CDK Python project!
 
-This is a blank project for CDK development with Python.
+En proyecto ha desarrollado un generador de thumbnails en python utilizando CDK para su despliegue en la nube de AWS.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+Este proyecto fue mi incursión al mundo de CDK, ya que anteriormente solo había trabajado con Terraform.
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+El reto fue desplegar el código en un lenguaje conocido, pero con una librería diferente, esta arquitectura
+tiene como base una función lambda donde se ejecuta el código de thumbnails, un bucket donde se 
+despliegan las imagenes de prueba, así como la salida, un api gateway para exponer la función lambda y
+la generación de un rol de servicio para los permisos necesarios de Lambda sobre S3.
 
-To manually create a virtualenv on MacOS and Linux:
+La arquitectura actual tiene como ventaja el uso de ARN para identificar un Bucket especifico al cual se le dan accesos
+y se restringe el acceso público al bucket, siendo estos dos puntos importantes a considerar.
 
-```
-$ python3 -m venv .venv
-```
+Por otro lado, y debido a la premura, me hubiera gustado dar mayor detalle en las acciones que lambda tiene sobre
+el bucket y no dejarlo a todo.
 
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
+De igual forma, esta arquitectura se complementó con Assets para cargar el código fuente y las imagenes de prueba 
+que usa el mismo código.
 
-```
-$ source .venv/bin/activate
-```
+Para la resolución de dependencias (Pillow y Numpy), se utilizaron Layers desde ARN que públicos para resolver.
+Me hubiera gustado hacer una capa personalizada para estas dependencias y simplificar.
 
-If you are a Windows platform, you would activate the virtualenv like this:
+ES un proyecto relativamente sencillo, relativamente porque no había usado CDK, aunque puede tener mejoras
+en el código para aplicar validaciones y manejo de excepciones.
 
-```
-% .venv\Scripts\activate.bat
-```
+Espero les guste mi imagen de salida.
 
-Once the virtualenv is activated, you can install the required dependencies.
-
-```
-$ pip install -r requirements.txt
-```
-
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
-
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
+¡Gracias por su tiempo!
